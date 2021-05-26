@@ -142,7 +142,7 @@ namespace ModLibsTiles.Libraries.Tiles {
 			}
 
 			if( pattern.Check(x, y) ) {
-//LogHelpers.Log( "  x:"+x+", y:"+y+" = "+TileID.GetUniqueKey( Main.tile[x, y].type )+" ? "+isOutOfRange+", "+isAtTileQuota );
+//LogLibraries.Log( "  x:"+x+", y:"+y+" = "+TileID.GetUniqueKey( Main.tile[x, y].type )+" ? "+isOutOfRange+", "+isAtTileQuota );
 				if( !isOutOfRange && !isAtTileQuota ) {
 					chartedTiles.Add( unchartedTile );
 

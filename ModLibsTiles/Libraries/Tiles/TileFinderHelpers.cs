@@ -43,7 +43,7 @@ namespace ModLibsTiles.Libraries.Tiles {
 			//
 			//int biomeOffsetX = Math.Abs( ( width - Main.zoneX ) / 2 );
 			//int biomeOffsetY = Math.Abs( ( height - Main.zoneY ) / 2 );
-			// //LogHelpers.Log("firstLightX:"+firstLightX+", firstLightY:"+firstLightY
+			// //LogLibraries.Log("firstLightX:"+firstLightX+", firstLightY:"+firstLightY
 			// //	+", lastLightX:"+lastLightX+", lastLightY:"+lastLightY
 			// //	+", width:"+width+", height:"+height
 			// //	+", biomeOffsetX:"+biomeOffsetX+", biomeOffsetY:"+biomeOffsetX);

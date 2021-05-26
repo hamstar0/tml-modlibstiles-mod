@@ -3,36 +3,6 @@ using Terraria;
 
 
 namespace ModLibsTiles.Classes.Tiles.TilePattern {
-	/// @private
-	[Obsolete("use Helpers.Tile.TileShapeType")]
-	public enum TileSlopeType {
-		/// @private
-		None,
-		/// @private
-		Any,
-		/// @private
-		Top,
-		/// @private
-		Bottom,
-		/// @private
-		Left,
-		/// @private
-		Right,
-		/// @private
-		HalfBrick,
-		/// @private
-		TopRightSlope,
-		/// @private
-		TopLeftSlope,
-		/// @private
-		BottomRightSlope,
-		/// @private
-		BottomLeftSlope
-	}
-
-
-
-
 	/// <summary>
 	/// Identifies a type of tile by its attributes.
 	/// </summary>

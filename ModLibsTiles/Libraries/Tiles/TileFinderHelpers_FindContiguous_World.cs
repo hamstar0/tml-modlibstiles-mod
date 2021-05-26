@@ -184,7 +184,7 @@ namespace ModLibsTiles.Libraries.Tiles {
 					if( matches.Count == 0 ) {
 						continue;
 					}
-//LogHelpers.Log( "x: "+x+", y: "+y+" - "+ matches.Count);
+//LogLibraries.Log( "x: "+x+", y: "+y+" - "+ matches.Count);
 
 					Rectangle rect = getRect( matches );
 					rects.Add( rect );

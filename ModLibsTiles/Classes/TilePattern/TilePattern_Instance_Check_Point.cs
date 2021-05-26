@@ -54,7 +54,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 				}
 			}
 
-			/*if( TileHelpers.IsAir(tile, false, false) ) {
+			/*if( TileLibraries.IsAir(tile, false, false) ) {
 				if( !this.CheckBrightness(tileX, tileY, out collideType) ) {
 					return false;
 				}

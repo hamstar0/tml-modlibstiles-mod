@@ -10,44 +10,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 	/// Used to in TilePattern's constructor to simplify specifying non-optional values. Keeps TilePattern immutable.
 	/// </summary>
 	public class TilePatternBuilder {
-		/// <summary></summary>
-		/// <param name="slopeType"></param>
-		/// <returns></returns>
-#pragma warning disable CS0618 // Type or member is obsolete
-		public static TileShapeType ConvertToShape( TileSlopeType slopeType ) {
-			switch( slopeType ) {
-			case TileSlopeType.None:
-				return TileShapeType.None;
-			case TileSlopeType.Any:
-				return TileShapeType.Any;
-			case TileSlopeType.Top:
-				return TileShapeType.TopSlope;
-			case TileSlopeType.Bottom:
-				return TileShapeType.BottomSlope;
-			case TileSlopeType.Left:
-				return TileShapeType.LeftSlope;
-			case TileSlopeType.Right:
-				return TileShapeType.RightSlope;
-			case TileSlopeType.HalfBrick:
-				return TileShapeType.HalfBrick;
-			case TileSlopeType.TopRightSlope:
-				return TileShapeType.TopRightSlope;
-			case TileSlopeType.TopLeftSlope:
-				return TileShapeType.TopLeftSlope;
-			case TileSlopeType.BottomRightSlope:
-				return TileShapeType.BottomRightSlope;
-			case TileSlopeType.BottomLeftSlope:
-				return TileShapeType.BottomLeftSlope;
-			default:
-				return TileShapeType.None;
-			}
-		}
-#pragma warning restore CS0618 // Type or member is obsolete
-
-
-
-		////////////////
-
 		/// <summary>Inverts results.</summary>
 		public bool Invert = false;
 
@@ -76,9 +38,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 		/// <summary></summary>
 		public bool? HasWire4 = null;
 
-		/// <summary>Tile is wholly solid.</summary>
-		[Obsolete("use HasSolidProperties and IsPlatform accordingly, instead")]
-		public bool? IsSolid = null;
 		/// <summary>Corresponds to `Main.tileSolid`.</summary>
 		public bool? HasSolidProperties = null;
 		/// <summary>Corresponds to `Main.tileSolidTop`</summary>
@@ -97,10 +56,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 		public bool? HasHoney = null;
 		/// <summary></summary>
 		public bool? HasLava = null;
-
-		/// @private
-		[Obsolete( "use Shape" )]
-		public TileSlopeType? Slope = null;
 
 		/// <summary></summary>
 		public TileShapeType? Shape = null;
@@ -155,22 +110,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 		/// <summary></summary>
 		public bool? HasWire4 { get; private set; }
 
-		/// <summary>Tile is wholly solid.</summary>
-		[Obsolete( "use HasSolidProperties and IsPlatform accordingly" )]
-		public bool? IsSolid {
-			get {
-				return this.HasSolidProperties.HasValue
-					&& this.HasSolidProperties.Value
-					&& (!this.IsPlatform.HasValue || !this.IsPlatform.Value);
-			}
-			private set {
-				this.HasSolidProperties = value;
-				if( value.HasValue && value.Value ) {
-					this.HasSolidProperties = value;
-					this.IsPlatform = false;
-				}
-			}
-		}
 		/// <summary>Corresponds to `Main.tileSolid`.</summary>
 		public bool? HasSolidProperties { get; private set; }
 		/// <summary>Corresponds to `Main.tileSolidTop`</summary>
@@ -189,10 +128,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 		public bool? HasHoney { get; private set; }
 		/// <summary></summary>
 		public bool? HasLava { get; private set; }
-
-		/// @private
-		[Obsolete( "use Shape" )]
-		public TileSlopeType? Slope = null;
 
 		/// <summary></summary>
 		public TileShapeType? Shape = null;
@@ -233,9 +168,6 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			this.HasWire3 = builder.HasWire3;
 			this.HasWire4 = builder.HasWire4;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			this.IsSolid = builder.IsSolid;
-#pragma warning restore CS0618 // Type or member is obsolete
 			this.HasSolidProperties = builder.HasSolidProperties;
 			this.IsPlatform = builder.IsPlatform;
 			this.IsActuated = builder.IsActuated;
@@ -247,14 +179,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			this.HasHoney = builder.HasHoney;
 			this.HasLava = builder.HasLava;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-			this.Slope = builder.Slope;
 			this.Shape = builder.Shape;
-
-			if( !builder.Shape.HasValue && builder.Slope.HasValue ) {
-				this.Shape = TilePatternBuilder.ConvertToShape( builder.Slope.Value );
-			}
-#pragma warning restore CS0618 // Type or member is obsolete
 
 			this.MinimumBrightness = builder.MinimumBrightness;
 			this.MaximumBrightness = builder.MaximumBrightness;

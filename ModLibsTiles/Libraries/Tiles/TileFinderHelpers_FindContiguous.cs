@@ -79,7 +79,7 @@ namespace ModLibsTiles.Libraries.Tiles {
 
 				if( (floorY - tileY) >= maxFallRange ) {
 					floorX = tileX;
-					return 0;//TileFinderHelpers.GetHorizontalWidthAt( nonFloorPattern, tileX, out floorX, --floorY );
+					return 0;//TileFinderLibraries.GetHorizontalWidthAt( nonFloorPattern, tileX, out floorX, --floorY );
 				}
 			}
 			floorY--;
@@ -105,7 +105,7 @@ namespace ModLibsTiles.Libraries.Tiles {
 
 				if( ( tileY - ceilY ) >= maxRiseRange ) {
 					ceilX = tileX;
-					return 0;//TileFinderHelpers.GetHorizontalWidthAt( nonCeilingPattern, tileX, out ceilX, ++ceilY );
+					return 0;//TileFinderLibraries.GetHorizontalWidthAt( nonCeilingPattern, tileX, out ceilX, ++ceilY );
 				}
 			}
 			ceilY++;
