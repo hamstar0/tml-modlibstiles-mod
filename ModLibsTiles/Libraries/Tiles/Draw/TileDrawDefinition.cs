@@ -22,7 +22,7 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 		/// <summary></summary>
 		public sbyte Direction = -1;
 		/// <summary></summary>
-		public TileShapeType? Slope = 0;
+		public TileShapeType Shape = TileShapeType.Any;
 		/// <summary></summary>
 		public bool IsHalfBrick = false;
 		/// <summary></summary>
@@ -80,8 +80,8 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 				WorldGen.SquareWallFrame( leftTileX, bottomTileY );
 			}
 
-			if( this.Slope.HasValue ) {
-				tile.slope( (byte)this.Slope.Value );
+			if( this.Shape != TileShapeType.Any ) {
+				tile.slope( (byte)this.Shape );
 			}
 			if( this.IsHalfBrick ) {
 				tile.halfBrick( true );
