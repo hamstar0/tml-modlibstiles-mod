@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Terraria;
-using ModLibsTiles.Classes.Tiles.TilePattern;
 using ModLibsCore.Libraries.Debug;
+using ModLibsTiles.Classes.Tiles.TilePattern;
 
 
 namespace ModLibsTiles.Libraries.Tiles {

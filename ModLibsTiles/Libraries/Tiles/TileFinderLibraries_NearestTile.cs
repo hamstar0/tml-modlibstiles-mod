@@ -1,8 +1,8 @@
-﻿using ModLibsTiles.Classes.Tiles.TilePattern;
-using ModLibsCore.Libraries.Debug;
+﻿using System;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
+using ModLibsCore.Libraries.Debug;
+using ModLibsTiles.Classes.Tiles.TilePattern;
 
 
 namespace ModLibsTiles.Libraries.Tiles {
