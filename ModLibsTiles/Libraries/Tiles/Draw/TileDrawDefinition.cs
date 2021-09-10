@@ -31,6 +31,10 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 		public bool IsLava = false;
 		/// <summary></summary>
 		public bool IsHoney = false;
+		/// <summary></summary>
+		public sbyte PaintTile = -1;
+		/// <summary></summary>
+		public sbyte PaintWall = -1;
 
 
 
@@ -44,33 +48,10 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 		/// <returns></returns>
 		public bool Place( int leftTileX, int bottomTileY ) {
 			if( !this.NotActive ) {
-				bool placed = TilePlacementLibraries.PlaceObject(
-					leftX: leftTileX,
-					bottomY: bottomTileY,
-					type: this.TileType,
-					style: this.TileStyle,
-					direction: this.Direction,
-					forced: true
-				);
-
-				if( !placed ) {
-					placed = WorldGen.PlaceTile(
-						i: leftTileX,
-						j: bottomTileY,
-						type: this.TileType,
-						mute: false,
-						forced: true,
-						plr: -1,
-						style: this.TileStyle
-					);
-
-					if( !placed ) {
-						return false;
-					}
-
-					WorldGen.SquareTileFrame( leftTileX, bottomTileY );
-				}
+				this.PlaceActive( leftTileX, bottomTileY );
 			}
+
+			//
 
 			Tile tile = Main.tile[ leftTileX, bottomTileY ];
 
@@ -80,17 +61,65 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 				WorldGen.SquareWallFrame( leftTileX, bottomTileY );
 			}
 
+			//
+
 			if( this.Shape != TileShapeType.Any ) {
 				tile.slope( (byte)this.Shape );
 			}
 			if( this.IsHalfBrick ) {
 				tile.halfBrick( true );
 			}
+
+			//
+
+			if( this.PaintTile != -1 ) {
+				WorldGen.paintTile( leftTileX, bottomTileY, (byte)this.PaintTile );
+			}
+			if( this.PaintWall != -1 ) {
+				WorldGen.paintWall( leftTileX, bottomTileY, (byte)this.PaintWall );
+			}
+
+			//
+
 			if( this.IsLava ) {
 				tile.lava( true );
 			} else if( this.IsHoney ) {
 				tile.honey( true );
 			}
+
+			return true;
+		}
+
+
+		private bool PlaceActive( int leftTileX, int bottomTileY ) {
+			bool placed = TilePlacementLibraries.PlaceObject(
+				leftX: leftTileX,
+				bottomY: bottomTileY,
+				type: this.TileType,
+				style: this.TileStyle,
+				direction: this.Direction,
+				forced: true
+			);
+
+			if( !placed ) {
+				placed = WorldGen.PlaceTile(
+					i: leftTileX,
+					j: bottomTileY,
+					type: this.TileType,
+					mute: false,
+					forced: true,
+					plr: -1,
+					style: this.TileStyle
+				);
+
+				if( !placed ) {
+					return false;
+				}
+
+				WorldGen.SquareTileFrame( leftTileX, bottomTileY );
+			}
+
+			//
 
 			return true;
 		}
