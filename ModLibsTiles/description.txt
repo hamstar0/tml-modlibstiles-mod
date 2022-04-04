@@ -1,1 +1,3 @@
-Supplies a library of helpful methods and classes for tile finding, filtering, and structure placement.
+Supplies a library of helpful methods and classes for tile finding, filtering, and complex structure placement.
+
+Note: This is a WIP mod.

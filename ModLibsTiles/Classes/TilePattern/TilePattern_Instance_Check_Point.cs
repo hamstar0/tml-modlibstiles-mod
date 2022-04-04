@@ -9,7 +9,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 	/// Identifies a type of tile by its attributes.
 	/// </summary>
 	public partial class TilePattern {
-		private bool CheckInverted( bool value ) {
+		private bool EvalBool( bool value ) {
 			if( value ) {
 				if( !this.Invert ) {
 					return true;
@@ -48,7 +48,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 
 			bool isActive = tile.active();
 			if( this.IsActive.HasValue ) {
-				if( this.CheckInverted( this.IsActive.Value != isActive ) ) {
+				if( this.EvalBool( this.IsActive.Value != isActive ) ) {
 					collideType = TileCollideType.Active;
 					return false;
 				}
@@ -63,7 +63,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			}*/
 
 			if( this.CustomCheck != null ) {
-				if( this.CheckInverted( !this.CustomCheck.Invoke(tileX, tileY) ) ) {
+				if( this.EvalBool( !this.CustomCheck.Invoke(tileX, tileY) ) ) {
 					collideType = TileCollideType.Custom;
 					return false;
 				}
@@ -80,7 +80,7 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 					}
 				}
 
-				if( this.CheckInverted( !subPatternFound ) ) {
+				if( this.EvalBool( !subPatternFound ) ) {
 					collideType = subCollideType;
 					return false;
 				}
@@ -106,35 +106,35 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			Tile tile = Main.tile[ tileX, tileY ];
 
 			if( this.IsAnyOfType != null && this.IsAnyOfType.Count > 0 ) {
-				if( this.CheckInverted( !this.IsAnyOfType.Any(t => t == tile.type) ) ) {
+				if( this.EvalBool( !this.IsAnyOfType.Any(t => t == tile.type) ) ) {
 					collideType = TileCollideType.TileType;
 					return false;
 				}
 			}
 
 			if( this.IsNotAnyOfType != null && this.IsNotAnyOfType.Count > 0 ) {
-				if( this.CheckInverted( this.IsNotAnyOfType.Any(t => t == tile.type) ) ) {
+				if( this.EvalBool( this.IsNotAnyOfType.Any(t => t == tile.type) ) ) {
 					collideType = TileCollideType.TileType;
 					return false;
 				}
 			}
 
 			if( this.IsActuated.HasValue ) {
-				if( this.CheckInverted( tile.inActive() != this.IsActuated.Value ) ) {
+				if( this.EvalBool( tile.inActive() != this.IsActuated.Value ) ) {
 					collideType = TileCollideType.Actuated;
 					return false;
 				}
 			}
 
 			if( this.HasSolidProperties.HasValue ) {
-				if( this.CheckInverted( Main.tileSolid[tile.type] != this.HasSolidProperties.Value ) ) {
+				if( this.EvalBool( Main.tileSolid[tile.type] != this.HasSolidProperties.Value ) ) {
 					collideType = TileCollideType.Solid;
 					return false;
 				}
 			}
 
 			if( this.IsPlatform.HasValue ) {
-				if( this.CheckInverted( Main.tileSolidTop[tile.type] != this.IsPlatform.Value ) ) {
+				if( this.EvalBool( Main.tileSolidTop[tile.type] != this.IsPlatform.Value ) ) {
 					collideType = TileCollideType.Platform;
 					return false;
 				}
@@ -164,67 +164,67 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			if( this.Shape.HasValue ) {
 				switch( this.Shape.Value ) {
 				case TileShapeType.None:
-					if( this.CheckInverted( tile.slope() != 0 ) ) {
+					if( this.EvalBool( tile.slope() != 0 ) ) {
 						collideType = TileCollideType.None;
 						return false;
 					}
 					break;
 				case TileShapeType.Any:
-					if( this.CheckInverted( tile.slope() == 0 ) ) {
+					if( this.EvalBool( tile.slope() == 0 ) ) {
 						collideType = TileCollideType.SlopeAny;
 						return false;
 					}
 					break;
 				case TileShapeType.HalfBrick:
-					if( this.CheckInverted( !tile.halfBrick() ) ) {
+					if( this.EvalBool( !tile.halfBrick() ) ) {
 						collideType = TileCollideType.SlopeHalfBrick;
 						return false;
 					}
 					break;
 				case TileShapeType.TopRightSlope:
-					if( this.CheckInverted( tile.slope() == 1 ) ) {
+					if( this.EvalBool( tile.slope() == 1 ) ) {
 						collideType = TileCollideType.SlopeTopRight;
 						return false;
 					}
 					break;
 				case TileShapeType.TopLeftSlope:
-					if( this.CheckInverted( tile.slope() == 2 ) ) {
+					if( this.EvalBool( tile.slope() == 2 ) ) {
 						collideType = TileCollideType.SlopeTopLeft;
 						return false;
 					}
 					break;
 				case TileShapeType.BottomRightSlope:
-					if( this.CheckInverted( tile.slope() == 3 ) ) {
+					if( this.EvalBool( tile.slope() == 3 ) ) {
 						collideType = TileCollideType.SlopeBottomRight;
 						return false;
 					}
 					break;
 				case TileShapeType.BottomLeftSlope:
-					if( this.CheckInverted( tile.slope() == 4 ) ) {
+					if( this.EvalBool( tile.slope() == 4 ) ) {
 						collideType = TileCollideType.SlopeBottomLeft;
 						return false;
 					}
 					break;
 				case TileShapeType.TopSlope:
-					if( this.CheckInverted( !tile.topSlope() ) ) {
+					if( this.EvalBool( !tile.topSlope() ) ) {
 						collideType = TileCollideType.SlopeTop;
 						return false;
 					}
 					break;
 				case TileShapeType.BottomSlope:
-					if( this.CheckInverted( !tile.bottomSlope() ) ) {
+					if( this.EvalBool( !tile.bottomSlope() ) ) {
 						collideType = TileCollideType.SlopeBottom;
 						return false;
 					}
 					break;
 				case TileShapeType.LeftSlope:
-					if( this.CheckInverted( !tile.leftSlope() ) ) {
+					if( this.EvalBool( !tile.leftSlope() ) ) {
 						collideType = TileCollideType.SlopeLeft;
 						return false;
 					}
 					break;
 				case TileShapeType.RightSlope:
-					if( this.CheckInverted( !tile.rightSlope() ) ) {
+					if( this.EvalBool( !tile.rightSlope() ) ) {
 						collideType = TileCollideType.SlopeRight;
 						return false;
 					}
@@ -237,15 +237,15 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 		}
 
 		private bool CheckNonActivePoint( int tileX, int tileY, out TileCollideType collideType ) {
-			if( this.CheckInverted( this.HasSolidProperties.HasValue && this.HasSolidProperties.Value ) ) {
+			if( this.EvalBool( this.HasSolidProperties.HasValue && this.HasSolidProperties.Value ) ) {
 				collideType = TileCollideType.Solid;
 				return false;
 			}
-			if( this.CheckInverted( this.IsPlatform.HasValue && this.IsPlatform.Value ) ) {
+			if( this.EvalBool( this.IsPlatform.HasValue && this.IsPlatform.Value ) ) {
 				collideType = TileCollideType.Platform;
 				return false;
 			}
-			if( this.CheckInverted( this.IsAnyOfType != null && this.IsAnyOfType.Count > 0 ) ) {
+			if( this.EvalBool( this.IsAnyOfType != null && this.IsAnyOfType.Count > 0 ) ) {
 				collideType = TileCollideType.TileType;
 				return false;
 			}
@@ -259,39 +259,39 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			Tile tile = Main.tile[tileX, tileY];
 
 			if( this.IsAnyOfWallType != null && this.IsAnyOfWallType.Count > 0 ) {
-				if( this.CheckInverted( !this.IsAnyOfWallType.Any( w => tile.wall == w ) ) ) {
+				if( this.EvalBool( !this.IsAnyOfWallType.Any( w => tile.wall == w ) ) ) {
 					collideType = TileCollideType.WallType;
 					return false;
 				}
 			}
 
 			if( this.IsNotAnyOfWallType != null && this.IsNotAnyOfWallType.Count > 0 ) {
-				if( this.CheckInverted( this.IsNotAnyOfWallType.Any( w => tile.wall == w ) ) ) {
+				if( this.EvalBool( this.IsNotAnyOfWallType.Any( w => tile.wall == w ) ) ) {
 					collideType = TileCollideType.WallTypeNot;
 					return false;
 				}
 			}
 
 			if( this.HasWire1.HasValue ) {
-				if( this.CheckInverted( this.HasWire1.Value != tile.wire() ) ) {
+				if( this.EvalBool( this.HasWire1.Value != tile.wire() ) ) {
 					collideType = TileCollideType.Wire1;
 					return false;
 				}
 			}
 			if( this.HasWire2.HasValue ) {
-				if( this.CheckInverted( this.HasWire2.Value != tile.wire2() ) ) {
+				if( this.EvalBool( this.HasWire2.Value != tile.wire2() ) ) {
 					collideType = TileCollideType.Wire2;
 					return false;
 				}
 			}
 			if( this.HasWire3.HasValue ) {
-				if( this.CheckInverted( this.HasWire3.Value != tile.wire3() ) ) {
+				if( this.EvalBool( this.HasWire3.Value != tile.wire3() ) ) {
 					collideType = TileCollideType.Wire3;
 					return false;
 				}
 			}
 			if( this.HasWire4.HasValue ) {
-				if( this.CheckInverted( this.HasWire4.Value != tile.wire4() ) ) {
+				if( this.EvalBool( this.HasWire4.Value != tile.wire4() ) ) {
 					collideType = TileCollideType.Wire4;
 					return false;
 				}
@@ -307,26 +307,26 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			}*/
 
 			if( this.HasWall.HasValue ) {
-				if( this.CheckInverted( ( tile.wall > 0 ) != this.HasWall.Value ) ) {
+				if( this.EvalBool( ( tile.wall > 0 ) != this.HasWall.Value ) ) {
 					collideType = TileCollideType.Wall;
 					return false;
 				}
 			}
 
 			if( this.HasLava.HasValue ) {
-				if( this.CheckInverted( tile.lava() != this.HasLava.Value ) ) {
+				if( this.EvalBool( tile.lava() != this.HasLava.Value ) ) {
 					collideType = TileCollideType.Lava;
 					return false;
 				}
 			}
 			if( this.HasHoney.HasValue ) {
-				if( this.CheckInverted( tile.honey() != this.HasHoney.Value ) ) {
+				if( this.EvalBool( tile.honey() != this.HasHoney.Value ) ) {
 					collideType = TileCollideType.Honey;
 					return false;
 				}
 			}
 			if( this.HasWater.HasValue ) {
-				if( this.CheckInverted( tile.liquid > 0 != this.HasWater.Value ) ) {
+				if( this.EvalBool( tile.liquid > 0 != this.HasWater.Value ) ) {
 					collideType = TileCollideType.Water;
 					return false;
 				}
@@ -356,13 +356,13 @@ namespace ModLibsTiles.Classes.Tiles.TilePattern {
 			float brightness = Lighting.Brightness( tileX, tileY );
 
 			if( this.MinimumBrightness.HasValue ) {
-				if( this.CheckInverted( this.MinimumBrightness > brightness ) ) {
+				if( this.EvalBool( this.MinimumBrightness > brightness ) ) {
 					collideType = TileCollideType.BrightnessLow;
 					return false;
 				}
 			}
 			if( this.MaximumBrightness.HasValue ) {
-				if( this.CheckInverted( this.MaximumBrightness < brightness ) ) {
+				if( this.EvalBool( this.MaximumBrightness < brightness ) ) {
 					collideType = TileCollideType.BrightnessHigh;
 					return false;
 				}

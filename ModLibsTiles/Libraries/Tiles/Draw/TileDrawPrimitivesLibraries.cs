@@ -32,7 +32,7 @@ namespace ModLibsTiles.Libraries.Tiles.Draw {
 			Rectangle myHollow = hollow.HasValue ? hollow.Value : new Rectangle();
 
 			for( int y = area.Y; y < maxY; y++ ) {
-				for( int x=area.X; x<maxX; x++ ) {
+				for( int x=area.X; x < maxX; x++ ) {
 					if( hollow.HasValue ) {
 						if( x >= myHollow.X && x < (myHollow.X + myHollow.Width) ) {
 							if( y >= myHollow.Y && y < (myHollow.Y + myHollow.Height) ) {
